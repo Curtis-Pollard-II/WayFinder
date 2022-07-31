@@ -25,4 +25,11 @@ export class ReservationsController{
         console.log('new reservation from the controller', newReservation);
         reservationsService.createReservation(newReservation)
     }
+
+    async deleteReservation(id){
+        if(await Pop.confirm()){
+            console.log('deleting reservation', id);
+            reservationsService.deleteReservation(id)
+        }
+    }
 }

@@ -9,13 +9,15 @@ export class Trip {
     constructor(data) {
         this.id = data.id || generateId()
         this.name = data.name
+        this.notes = data.notes
     }
 
     get Template() {
         return `
         <div class="row p-5">
             <div class="col-12 p-2 bg-info text-white">
-              <h1 class="text-center border-bottom">${this.name}</h1>
+              <h1 class="text-center border-bottom">${this.name}<span class="fs-5 ps-5"><i class="p-2 selectable" onclick="app.tripsController.deleteTrip('${this.id}')">Delete Trip</i></span></h1>
+              
               <div class="row p-2">
                 <div class="fs-5 col-2 p-1"><b class="border-bottom border-dark"> Type</b></div>
                 <div class="fs-5 col-2 p-1"><b class="border-bottom border-dark"> Name</b></div>
@@ -33,7 +35,7 @@ export class Trip {
               <form id="reservation-form" onsubmit="app.reservationsController.createReservation('${this.id}')">
                 <div class="row">
                   <div class="pb-3 pt-3" >
-                    <input name="type" id="type" class="col-2" type="text"><input name="name" id="name"class="col-2" type="text"><input name="code" id="code" class="col-2" type="text"><input name="address" id="address" class="col-2" type="text"><input name="date" id="date" class="col-2" type="date"><input name="cost" id="cost" class="col-2" type="number">
+                    <input required name="type" id="type" class="col-2" type="text"><input required name="name" id="name"class="col-2" type="text"><input required name="code" id="code" class="col-2" type="text"><input required name="address" id="address" class="col-2" type="text"><input required name="date" id="date" class="col-2" type="date"><input required name="cost" id="cost" class="col-2 " type="number">
                   </div>
                   <div class="row">
                     <button class="btn btn-primary rounded offset-4 col-4 fs-2" >Submit New Reservation</button>
@@ -43,11 +45,12 @@ export class Trip {
 
                 <div class="p-3">
                   <textarea class="col-5 p-3" name="Notes" id="" cols="30" rows="10"></textarea>
+                  <i class="selectable px-2" onclick="app.tripsController.editNote('${this.id}')">Save Note</i>
                 </div>
               
 
               <div class="row pe-4 text-end">
-                <h3>TOTAL:  345$</h3>
+                <h3>TOTAL: $ ${this.TripTotal}</h3>
               </div>
             </div>
           </div>
@@ -64,6 +67,13 @@ get Reservations(){
     }else{
         return '<p> No Info Entered yet </p>'
     }
+}
+
+get TripTotal(){
+  let total = 0
+  let reservations = ProxyState.reservations.filter(reservation => reservation.tripId == this.id)
+  reservations.forEach(reservation => total += reservation.cost)
+  return total
 }
 
 

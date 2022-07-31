@@ -10,7 +10,16 @@ class TripsService{
         console.log(ProxyState.trips);
     }
 
+    deleteTrip(id){
+        console.log('deleting trip form the service', id);
+        ProxyState.trips = ProxyState.trips.filter(t => t.id != id)
+    }
 
+editNote(id, newText){
+    let trip = ProxyState.trips.find(t => t.id == id)
+    trip.notes = newText
+    ProxyState.trips = ProxyState.trips
+}
 
 }
 

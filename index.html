@@ -25,7 +25,7 @@
   <main>
     <div class="container-fluid">
       <div class="row">
-        <form  id="trip-form" onsubmit="app.tripsController.createTrip()" class="col-12"><h3 class="p-2">Create New Trip:  <input name="name"></input></h3> 
+        <form  id="trip-form" onsubmit="app.tripsController.createTrip()" class="col-12"><h3 class="p-2">Create New Trip:  <input minlength="3" maxlength="15" name="name"></input></h3> 
         </form>
 
         <section id="trip-card" class="container-fluid">
@@ -57,6 +57,7 @@
                 </div>
                 <div class="p-3">
                   <textarea class="col-5 p-3" name="Notes" id="" cols="30" rows="10"></textarea>
+                  
                 </div>
 
               </div>

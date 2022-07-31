@@ -22,6 +22,7 @@ class AppState extends EventEmitter {
       address: '3434 Branburry st',
       date: '02-09-2022',
       cost: 34,
+      notes: 'lorem bla bla bla bla bla bla bla bla'
     }),
   ]
 

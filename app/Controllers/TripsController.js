@@ -1,6 +1,7 @@
 import { ProxyState } from "../AppState.js";
 import { tripsService } from "../Services/TripsService.js";
 import { loadState, saveState } from "../Utils/LocalStorage.js";
+import { Pop } from "../Utils/Pop.js";
 
 
 
@@ -37,4 +38,23 @@ export class TripsController{
         tripsService.createTrip(newTrip)
         _draw()
 }
+
+async deleteTrip(id){
+    if(await Pop.confirm()){
+        console.log('deleting trip', id);
+        tripsService.deleteTrip(id)
+    }
+}
+
+editNote(id){
+    console.log('editing', id);
+    let newText = window.event.target.value
+    tripsService.editNote(id, newText)
+
+}
+
+
+
+
+
 }
