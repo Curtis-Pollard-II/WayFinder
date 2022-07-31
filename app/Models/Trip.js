@@ -29,18 +29,23 @@ export class Trip {
                 ${this.Reservations}
 
               </div>
-              <div class="row">
-                <div class="pb-3 pt-3" >
-                  <input class="col-2" type="text"><input class="col-2" type="text"><input class="col-2" type="text"><input class="col-2" type="text"><input class="col-2" type="date"><input class="col-2" type="number">
-                </div>
+
+              <form id="reservation-form" onsubmit="app.reservationsController.createReservation('${this.id}')">
                 <div class="row">
-                  <button class="btn btn-primary rounded  offset-4 col-4 fs-2">Submit New Reservation</button>
+                  <div class="pb-3 pt-3" >
+                    <input name="type" id="type" class="col-2" type="text"><input name="name" id="name"class="col-2" type="text"><input name="code" id="code" class="col-2" type="text"><input name="address" id="address" class="col-2" type="text"><input name="date" id="date" class="col-2" type="date"><input name="cost" id="cost" class="col-2" type="number">
+                  </div>
+                  <div class="row">
+                    <button class="btn btn-primary rounded offset-4 col-4 fs-2" >Submit New Reservation</button>
+                  </div>
                 </div>
+              </form>
+
                 <div class="p-3">
                   <textarea class="col-5 p-3" name="Notes" id="" cols="30" rows="10"></textarea>
                 </div>
+              
 
-              </div>
               <div class="row pe-4 text-end">
                 <h3>TOTAL:  345$</h3>
               </div>
@@ -52,8 +57,8 @@ export class Trip {
 
 get Reservations(){
     let template = ''
-    let reservations = ProxyState.reservations.filter(r => r.tripId == this.id)
-    reservations.forEach(r => template += r.Template)
+    let reservations = ProxyState.reservations.filter(res => res.tripId == this.id)
+    reservations.forEach(res => template += res.Template)
     if(template){
         return template
     }else{

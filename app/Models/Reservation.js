@@ -11,6 +11,7 @@ export class Reservation {
         this.address = data.address,
         this.date = data.date,
         this.cost = data.cost
+        this.tripId = data.tripId
     }
 
     get Template(){

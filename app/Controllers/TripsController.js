@@ -1,5 +1,6 @@
 import { ProxyState } from "../AppState.js";
 import { tripsService } from "../Services/TripsService.js";
+import { loadState, saveState } from "../Utils/LocalStorage.js";
 
 
 
@@ -16,8 +17,12 @@ function _draw(){
 
 export class TripsController{
     constructor(){
-   
-    _draw()
+        ProxyState.on('trips',_draw)
+        ProxyState.on('reservations', _draw)
+        ProxyState.on('trips', saveState)
+        ProxyState.on('reservations', saveState)
+        loadState()
+        _draw()
      }
     
     createTrip(){

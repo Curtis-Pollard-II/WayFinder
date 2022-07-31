@@ -13,18 +13,19 @@ class AppState extends EventEmitter {
       name: 'Boston Vacation'
     }),
   ]
-
+  /** @type {import('./Models/Reservation').Reservation[]} */
   reservations = [
     new Reservation({
-      
-      type: 'park',
-      name: 'Alamo',
-      code: 'thde4545jjr',
-      address: '544 sinclair way',
-      date: "",
+      type: 'parking',
+      name: 'alamo',
+      code: '689689wewewe',
+      address: '3434 Branburry st',
+      date: '02-09-2022',
       cost: 34,
-       })
+    }),
   ]
+
+
 
 
 
