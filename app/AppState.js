@@ -1,3 +1,4 @@
+import { Note } from "./Models/Note.js"
 import { Reservation } from "./Models/Reservation.js"
 import { Trip } from "./Models/Trip.js"
 import { EventEmitter } from "./Utils/EventEmitter.js"
@@ -26,7 +27,12 @@ class AppState extends EventEmitter {
     }),
   ]
 
-
+  /** @type {import('./Models/Note').Note[]} */
+  notes = [
+    new Note({
+      text: 'Lorem'
+    })
+  ]
 
 
 

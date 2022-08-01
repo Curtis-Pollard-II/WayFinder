@@ -9,17 +9,21 @@ export class Trip {
     constructor(data) {
         this.id = data.id || generateId()
         this.name = data.name
-        this.notes = data.notes
     }
 
     get Template() {
         return `
-        <div class="row p-5">
-            <div class="col-12 p-2 bg-info text-white">
-              <h1 class="text-center border-bottom">${this.name}<span class="fs-5 ps-5"><i class="p-2 selectable" onclick="app.tripsController.deleteTrip('${this.id}')">Delete Trip</i></span></h1>
+        
+      <div class="container p-2">
+        
+        <button type="button" class="btn btn-info p-2" data-toggle="collapse" data-target="#demo">${this.name}</button>
+                
+        <div id="demo" class="collapse in row p-5">
+            <div class="col-12 p-2 bg-info">
+              <h1 class="text-center text-white border-bottom">${this.name}<span class="fs-5 ps-5"><i class="p-2 selectable" onclick="app.tripsController.deleteTrip('${this.id}')">Delete Trip</i></span></h1>
               
               <div class="row p-2">
-                <div class="fs-5 col-2 p-1"><b class="border-bottom border-dark"> Type</b></div>
+                <div class="fs-5 col-2 ps-3 p-1"><b class="border-bottom border-dark"> Type</b></div>
                 <div class="fs-5 col-2 p-1"><b class="border-bottom border-dark"> Name</b></div>
                 <div class="fs-5 col-2 p-1"><b class="border-bottom border-dark"> Code</b></div>
                 <div class="fs-5 col-2 p-1"><b class="border-bottom border-dark"> Address</b></div>
@@ -43,10 +47,10 @@ export class Trip {
                 </div>
               </form>
 
-                <div class="p-3">
-                  <textarea class="col-5 p-3" name="Notes" id="" cols="30" rows="10"></textarea>
-                  <i class="selectable px-2" onclick="app.tripsController.editNote('${this.id}')">Save Note</i>
-                </div>
+                <form class="p-3">
+                  <textarea class="col-5 p-3" name="text" id="text" cols="30" rows="10"></textarea>
+                  <i class="selectable px-2" name="text" id="text" onclick="app.notesController.createNote('${this.id}')">Save Note</i>
+                </form>
               
 
               <div class="row pe-4 text-end">
@@ -54,16 +58,20 @@ export class Trip {
               </div>
             </div>
           </div>
+        </div>
+    
         `
     }
 
 
 get Reservations(){
     let template = ''
-    let reservations = ProxyState.reservations.filter(res => res.tripId == this.id)
+    let reservations = ProxyState.reservations.filter(res => res.tripId == this.id).sort((a, b) => a.date - b.date)
     reservations.forEach(res => template += res.Template)
+    
+    
     if(template){
-        return template
+        return template 
     }else{
         return '<p> No Info Entered yet </p>'
     }

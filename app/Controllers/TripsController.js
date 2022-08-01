@@ -12,14 +12,18 @@ function _draw(){
     let trips = ProxyState.trips ;
     trips.forEach(t => template += t.Template)
     document.getElementById('trip-card').innerHTML = template
+
+    
     
 }
 
 
 export class TripsController{
     constructor(){
+        ProxyState.on('notes',_draw)
         ProxyState.on('trips',_draw)
         ProxyState.on('reservations', _draw)
+        ProxyState.on('notes', saveState)
         ProxyState.on('trips', saveState)
         ProxyState.on('reservations', saveState)
         loadState()
@@ -46,12 +50,7 @@ async deleteTrip(id){
     }
 }
 
-editNote(id){
-    console.log('editing', id);
-    let newText = window.event.target.value
-    tripsService.editNote(id, newText)
 
-}
 
 
 
